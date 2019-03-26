@@ -1,31 +1,30 @@
-
-
 # ml入门（一）powered by @李宏毅
 
 -----------------------------------
 ![learning-map](https://img-blog.csdnimg.cn/20190324144204972.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
 ## 第一课（机器学习总揽）
-1. ml基本步骤
+### ml基本步骤
    1. 找出一个function set
    2. 让maching拥有衡量一个function好坏的能力
-      1. loss function L:
-          > input: a function output: how bad it is  
-          > for example: square error
-          ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190324151349742.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+      > loss function L:
+      > input: a function output: how bad it is  
+      > for example: square error
+      ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190324151349742.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
    3. 使用一个好的演算法挑出最好的那个function
       > find a function with min loss  
       > f* = argmin L(f)
-2. ml category
+### ml category
    1. supervised learning // learning from teacher
-      1. regression
-          > the output of the target function f is 'scalar'
-      2. classification
-          1. binary classification
-              > the output of the target function f is 'Yes or No'
-          2. multi-class classification
-              > the output of the target function f is one of the 'class1, class2, .... classN'
-      3. structured learning
-          > the output of the target function f is a structural output
+      #### regression
+      > the output of the target function f is 'scalar'
+      #### classification
+      _binary classification_  
+      > the output of the target function f is 'Yes or No'  
+      >
+      _multi-class classification_  
+      > the output of the target function f is one of the 'class1, class2, .... classN'
+      _structured learning_
+      > the output of the target function f is a structural output
    2. semi-supervised learning
    3. transfer learning
    4. unsupervised learning
@@ -64,7 +63,7 @@
     3. feature scaling
         > 由于各个特征的输入值不同，单位不同，导致每个特征参数的改变对loss的影响都不同，所以需要  
         > 将输入值进行标准化，使得所有特征参数的改变对loss的影响相同或者相差不大。
-2. overfitting(过拟合)
+2. overfitting(过拟合) // 在train_data上的效果好，但是在test_data上效果很差
     > ps: overfitting是由于variance过大造成的，bias过大造成underfitting
 3. regularization(目的在于寻找更加平滑的函数,防止过拟合)
     > 通常做法为在损失函数后加上一项约束项，权重的绝对值大小就会整体倾向于减小，尤其是不会出现特别大的值
