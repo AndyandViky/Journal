@@ -1,3 +1,5 @@
+
+
 # ml入门（三）powered by @李宏毅
 
 -----------------------------------
@@ -59,3 +61,14 @@ model.fit()
 ### better-representation
 
 ## 第九课（unsupervised learning）
+### clustering
+<strong>k-means</strong>  
+![k-means](https://img-blog.csdnimg.cn/20190327210709576.png)
+<strong>hierachical agglomerative clustering(HAC)层次聚类</strong>  
+![hac](https://img-blog.csdnimg.cn/20190327210726775.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+### dimension reduction
+![dimension-reduction](https://img-blog.csdnimg.cn/2019032722104184.png)
+<strong>feature selection</strong>
+![feature selection](https://img-blog.csdnimg.cn/201903272211058.png)
+<strong>principle component analysis(PCA)</strong>
+
