@@ -1,3 +1,5 @@
+
+
 # ml入门（三）powered by @李宏毅
 
 -----------------------------------
@@ -172,3 +174,11 @@ VAE得到的结果不太清楚。VAE与PixelRNN区别在于，理论上VAE可以
 比如code是10维，固定其中8维、调整剩余2维，看结果，可以解读code的每个维度代表什么意思，从而每个维度就像拉杆一样可以有目的的调整。  
 ![VAE](https://img-blog.csdnimg.cn/20190328165852395.png)
 ##### 3 generative adversarial network(GAN)
+用拟态的演化来类比GAN。  
+![GAN](https://img-blog.csdnimg.cn/20190329161038478.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+![GAN](https://img-blog.csdnimg.cn/20190329161103953.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+Discriminator判断image是Generator产生的还是real images, Generator根Discriminator演化。  
+Generator从未看过real images, 产生的是database中没有见过的image。
+  
+<strong>实际的问题：</strong>
+![GAN](https://img-blog.csdnimg.cn/20190329162810289.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
