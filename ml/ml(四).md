@@ -39,3 +39,21 @@
 &emsp;![sigmoid-kernel](https://img-blog.csdnimg.cn/20190330105232156.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
 
 ## 第十二课（structured learning）
+### 1 structured linear model
+![概览](https://img-blog.csdnimg.cn/2019033015105335.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+有时我们希望输入输出是带有结构的，比如sequence, list, tree, bounding box…… ，就需要用到structured learning。
+![框架](https://img-blog.csdnimg.cn/20190330151358730.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+总体来说就是找一个函数F:X×Y→R, X,Y是 input structured objects, R 是 real number, 衡量 x,y 有多匹配。 
+测试时，对给定的x，穷举所有的y，找令F 最大的ỹ . 
+##### (1) 三个问题
+![3个问题](https://img-blog.csdnimg.cn/20190330130222398.png)
+![问题1](https://img-blog.csdnimg.cn/20190330154721338.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+![问题2](https://img-blog.csdnimg.cn/20190330154738924.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+![问题3](https://img-blog.csdnimg.cn/20190330155012607.png)
+##### (2) 总结
+![总结](https://img-blog.csdnimg.cn/20190330153331468.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+### 2 structured svm
+![钢要](https://img-blog.csdnimg.cn/20190330161028203.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+##### (1) separable
+
+
