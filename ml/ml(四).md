@@ -1,4 +1,3 @@
-
 # ml入门（四）powered by @李宏毅
 
 -----------------------------------
@@ -26,3 +25,17 @@
 ## 第十一课（svm）
 ![svm](https://img-blog.csdnimg.cn/20190329234953666.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
 ### 1 hinge loss
+![hinge-loss](https://img-blog.csdnimg.cn/20190330093102602.png)
+### 2 linear svm
+![linear-svm](https://img-blog.csdnimg.cn/20190330095720147.png)
+![svm1](https://img-blog.csdnimg.cn/20190330102022118.png)
+##### (1) 核函数
+![核函数](https://img-blog.csdnimg.cn/20190330102911770.png)
+&emsp;<strong>1 rbf kernel(radial basis function)</strong>
+&emsp;![rbf-kernel](https://img-blog.csdnimg.cn/20190330104744626.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+&emsp;ps: 容易为无穷长的内积，所以容易产生过拟合
+
+&emsp;<strong>2 sigmoid kernel</strong>
+&emsp;![sigmoid-kernel](https://img-blog.csdnimg.cn/20190330105232156.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+
+## 第十二课（structured learning）
