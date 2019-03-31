@@ -94,3 +94,22 @@ structured svm是linear的，所以做不出来一些很酷炫的东西！
 我们可以在提取feature时使用DNN，再接上structured svm！！
 ![b-structured-svm](https://img-blog.csdnimg.cn/20190331153401719.png)
 ### 3 sequence labeling problem
+![sequence labeling](https://img-blog.csdnimg.cn/2019033115504577.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+##### (1) Hidden Markov Model(HMM)
+HMM所做的事情就是描述一句话是如何说出来的。
+![HMM](https://img-blog.csdnimg.cn/2019033115592528.png)
+![HMM1](https://img-blog.csdnimg.cn/20190331160209814.png)
+&emsp;<strong>1 How you generate a sentence?</strong>
+&emsp;![generate a sentence](https://img-blog.csdnimg.cn/20190331155025713.png)
+&emsp;<strong>2 viterbi algorithm</strong>
+&emsp;穷举所有可能的y太过复杂，可以使用viterbi算法。告诉算法p(x, y)如何计算，viterbi算法就会返回y使得p(x, y)最大。
+&emsp;![viterbi algorithm](https://img-blog.csdnimg.cn/20190331161257274.png)
+##### (2) Condition Random Field(CRF)
+![CRF](https://img-blog.csdnimg.cn/20190331163657622.png)
+![CRF1](https://img-blog.csdnimg.cn/20190331164807943.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+![CRF2](https://img-blog.csdnimg.cn/20190331170115972.png)
+&emsp;<strong>1 gradient ascent</strong>
+&emsp;![gradient-ascent](https://img-blog.csdnimg.cn/20190331171606417.png)
+
+##### (3) Structured Perception/SVM
+##### (4) Towords Deep Learning
