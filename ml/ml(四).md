@@ -1,3 +1,4 @@
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 # ml入门（四）powered by @李宏毅
 
 -----------------------------------
@@ -34,7 +35,6 @@
 &emsp;<strong>1 rbf kernel(radial basis function)</strong>
 &emsp;![rbf-kernel](https://img-blog.csdnimg.cn/20190330104744626.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
 &emsp;ps: 容易为无穷长的内积，所以容易产生过拟合
-
 &emsp;<strong>2 sigmoid kernel</strong>
 &emsp;![sigmoid-kernel](https://img-blog.csdnimg.cn/20190330105232156.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
 
@@ -55,5 +55,42 @@
 ### 2 structured svm
 ![钢要](https://img-blog.csdnimg.cn/20190330161028203.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
 ##### (1) separable
-
-
+能够找出一个w使得正确的point比其同样形状的point值都至少大一个δ
+![separable](https://img-blog.csdnimg.cn/20190331092536846.png)
+##### （2) non-separable
+没有办法使得正确答案的分数高于其他答案的分数
+![non-separable](https://img-blog.csdnimg.cn/20190331102627355.png)
+&emsp;<strong>1 loss function</strong>
+&emsp;![loss](https://img-blog.csdnimg.cn/20190331104027334.png)
+&emsp;<strong>2 将损失最小化（GD）</strong>
+&emsp;![GD](https://img-blog.csdnimg.cn/20190331104040154.png)
+##### （3) considering errors
+考虑多个不同的结果可能相差不大，例如两个结果都成功圈出了目标，但是圈出的范围略有不同，这种情况下如果使用分数较差那个结果也是可以的。这就需要求出多个不同结果之间的差异分数。
+&emsp;<strong>1 define error function</strong>
+&emsp;![error function](https://img-blog.csdnimg.cn/20190331105331686.png)
+&emsp;<strong>2 improve loss function</strong>
+&emsp;![new-loss-function](https://img-blog.csdnimg.cn/20190331105710788.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+##### （4) regularization
+![sl-regularization](https://img-blog.csdnimg.cn/20190331111211127.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+##### （5) structured svm
+![sl-svm](https://img-blog.csdnimg.cn/20190331140913843.png)
+##### （6) cutting plane algorithm for structured svm
+![cutting-plane](https://img-blog.csdnimg.cn/20190331141623484.png)
+&emsp;<strong>1 how to find the A?</strong>
+&emsp;&emsp;1. 初始化A=null
+&emsp;&emsp;2. 求出最小点w
+&emsp;&emsp;3. 查找当前是否有不满足的约束，找到约束最大的那个加入A
+&emsp;&emsp;4. 循环2到3，直到找到满足约束的最小w
+&emsp;<strong>2 how to find the most violated?</strong>
+&emsp;![most -violate](https://img-blog.csdnimg.cn/20190331144116665.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+&emsp;由于Σ和w*ϕ(x, ỹ)是固定值，所以并不影响计算degree的值
+##### （7) multi-class and binary svm
+&emsp;<strong>1 multi-class</strong>
+&emsp;![multi-svm-class](https://img-blog.csdnimg.cn/20190331152431337.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+&emsp;<strong>2 binary-class</strong>
+&emsp;![binary-class](https://img-blog.csdnimg.cn/20190331152829722.png)
+##### （8) beyond structured svm
+structured svm是linear的，所以做不出来一些很酷炫的东西！
+我们可以在提取feature时使用DNN，再接上structured svm！！
+![b-structured-svm](https://img-blog.csdnimg.cn/20190331153401719.png)
+### 3 sequence labeling problem
