@@ -96,4 +96,11 @@ boosting训练子分类器时是有顺序的！！
 ![上限会缩小证明](https://img-blog.csdnimg.cn/20190401233157795.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
 
 <strong>Gradient Boosting</strong>
-![gradient-boosting](https://img-blog.csdnimg.cn/20190401234449694.png)
+
+&emsp;<strong>一般公式推导：</strong>
+&emsp;![gradient-boosting](https://img-blog.csdnimg.cn/20190401234449694.png)
+![公式推导](https://img-blog.csdnimg.cn/2019040210063786.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+
+##### (3) stacking
+![stacking](https://img-blog.csdnimg.cn/20190402101130611.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+将多个model合起来作为final classifier的输入，由于前面的model可能非常复杂，所以final classifier可以简单一点。
