@@ -114,3 +114,6 @@ ps: 实验结果得出使用small batch size进行训练会得到较为平坦的
 ![sharpness的定义](https://img-blog.csdnimg.cn/20190405123608430.png)
 第一种是在谷底往上一个ξ，然后计算在ξ平面上山体的面积（二维平面），平面面积越大越平坦，或者ξ两边点之间的线段长度（一维）...
 第二种是以θ为圆心固定半径画一个圆，找到圆中loss最大的点然后减去θ点的loss作为sharpness。
+
+##### (4) 额外知识：Computational graph
+![Computational graph](https://img-blog.csdnimg.cn/20190405165013556.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
