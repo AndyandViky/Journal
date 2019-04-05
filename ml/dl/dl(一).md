@@ -107,6 +107,7 @@ R 为训练数据的数量，M为model的容积。
 &emsp;用于测定的sensitivity就是jacobian matrix的Forbenius norm,Forbenius norm就是每个元素的平方和再开根号。
 &emsp;![Sensitivity](https://img-blog.csdnimg.cn/20190405112638559.png)
 ##### (3) Sharpness(敏感度)
+ps: 实验结果得出使用small batch size进行训练会得到较为平坦的sharpness。
 ![sharp-minima](https://img-blog.csdnimg.cn/20190405123108625.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
 由上图看出，如果在sharp找到minima，那么这个model在test上过拟合的概率更大。
 <strong>1 sharpness的定义</strong>
