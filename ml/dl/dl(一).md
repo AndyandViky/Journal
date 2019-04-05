@@ -84,3 +84,32 @@ Degenerate Hessian has at least one zero eigen value.
 ![特征值的出现](https://img-blog.csdnimg.cn/20190403163840389.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
 ![guess about errpr surface](https://img-blog.csdnimg.cn/20190403164107744.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
 由图可得出结论，saddle point比较容易出现在loss在的地方，local minimum比较容易出现在loss低的地方。
+### 3 BatchNorm(batch normalization)
+<strong>“Internal Covariate Shift”问题</strong>
+对于深度学习这种包含很多隐层的网络结构，在训练过程中，因为各层参数不停在变化，所以每个隐层都会面临covariate shift的问题，也就是在训练过程中，隐层的输入分布老是变来变去，这就是所谓的“Internal Covariate Shift”，Internal指的是深层网络的隐层，是发生在网络内部的事情，而不是covariate shift问题只发生在输入层。
+
+<strong>基本思想</strong>：因为深层神经网络在做非线性变换前的激活输入值（就是那个x=WU+B，U是输入）随着网络深度加深或者在训练过程中，其分布逐渐发生偏移或者变动，之所以训练收敛慢，一般是整体分布逐渐往非线性函数的取值区间的上下限两端靠近（对于Sigmoid函数来说，意味着激活输入值WU+B是大的负值或正值），所以这导致反向传播时低层神经网络的梯度消失，这是训练深层神经网络收敛越来越慢的本质原因，而BN就是通过一定的规范化手段，把每层神经网络任意神经元这个输入值的分布强行拉回到均值为0方差为1的标准正态分布，其实就是把越来越偏的分布强制拉回比较标准的分布，这样使得激活输入值落在非线性函数对输入比较敏感的区域，这样输入的小变化就会导致损失函数较大的变化，意思是这样让梯度变大，避免梯度消失问题产生，而且梯度变大意味着学习收敛速度快，能大大加快训练速度。
+![BN](https://img-blog.csdnimg.cn/20190405095826649.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+### 4 Generalization(范化)
+![范化](https://img-blog.csdnimg.cn/20190405101042818.png)
+由上图可知，test-data 的 Error 的 upper-bound 为 train-data 的 Error + Ω（R, M, δ）
+R 为训练数据的数量，M为model的容积。
+<strong>如何得到model的容积（VC dimension）？</strong>
+![VC-dimension](https://img-blog.csdnimg.cn/20190405101935997.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+如图所示，有两张图片为鹿，一张为马，给三个图片随机分配label，总共有8中可能，如果在所有的可能情况下maching都能得到0%的error。那么就称其VC dimension >= 3。
+##### (1) indicator of generalization
+![indicator](https://img-blog.csdnimg.cn/20190405104711151.png)
+##### (2) Sensitivity(敏感度)
+&emsp;用于测定是否overfitting。值越高越容易是错误的。sensitivity和generalization成正比，意味着在得到一笔没有label的test-data时可以先用sensitivity预测效果。
+&emsp;<strong>1 Jacobian matrix</strong>
+&emsp;雅可比矩阵的重要性在于它体现了一个可微方程与给出点的最优线性逼近
+&emsp;![jacobian](https://img-blog.csdnimg.cn/20190405111505297.png)
+&emsp;用于测定的sensitivity就是jacobian matrix的Forbenius norm,Forbenius norm就是每个元素的平方和再开根号。
+&emsp;![Sensitivity](https://img-blog.csdnimg.cn/20190405112638559.png)
+##### (3) Sharpness(敏感度)
+![sharp-minima](https://img-blog.csdnimg.cn/20190405123108625.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+由上图看出，如果在sharp找到minima，那么这个model在test上过拟合的概率更大。
+<strong>1 sharpness的定义</strong>
+![sharpness的定义](https://img-blog.csdnimg.cn/20190405123608430.png)
+第一种是在谷底往上一个ξ，然后计算在ξ平面上山体的面积（二维平面），平面面积越大越平坦，或者ξ两边点之间的线段长度（一维）...
+第二种是以θ为圆心固定半径画一个圆，找到圆中loss最大的点然后减去θ点的loss作为sharpness。
