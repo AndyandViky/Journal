@@ -1,3 +1,6 @@
+
+
+
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 # DL入门（二）powered by @李宏毅
 
@@ -23,3 +26,42 @@
 2. exposure bias
 如下图，在训练时maching可能只专门训练了某些‘路径’，在训练时maching可能会在第一步就选错，那么无论怎么样后续都不会正确。
 ![exposure bias](https://img-blog.csdnimg.cn/20190405234042859.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+### 5 Pointer Network
+详细解析：_https://blog.csdn.net/dukuku5038/article/details/84112072_
+
+## 第五课（Recursive Network）
+Recursive Network需要自己决定network的structure，而 Recurrent Network是固定的structure，可以说RNN是Recursive Network的一个special case。
+![Recursive Network](https://img-blog.csdnimg.cn/20190406093732246.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+<strong>example:</strong>
+核心在于找到一个f，可以正确地处理数据并且输出相应内容。f可以是NN。
+![example](https://img-blog.csdnimg.cn/20190406094616925.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+### 1 Recursive Neural Tensor Network
+主要在于 f 函数中包含了Tensor Network。
+![Recursive Neural Tensor Network](https://img-blog.csdnimg.cn/2019040609532784.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+### 2 Tree LSTM
+主要在于 f 函数由LSTM构成。
+![Tree LSTM](https://img-blog.csdnimg.cn/20190406101026767.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+
+## 第六课（Attention based Model）
+如下图所示，输入一个数据到中央控制器（DNN/RNN/...）之后中央控制器会根据attention weight 去控制接下来要attention到哪个位置，也就是说会选择相应位置将数据读取出来。
+![Attention based Model](https://img-blog.csdnimg.cn/20190406101700223.png)
+### 1 Reading Comprehension(阅读理解)
+让机器去读一篇文章，并且理解其中的内容。
+##### (1) Memory Network
+如下图所示，为MN的基础版本，将一个文章中的每个句子和提出的quesion各变为一个vector，计算question和每个句子的相似度α（即匹配度，weight），之后再做weight sum得出结果输入DNN得到最终answer。
+![ Memory Network-base](https://img-blog.csdnimg.cn/20190406103358166.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+如下图所示，为MN的进阶版本，其中利用不同的matrix（learn 出来的）将句子进行两次transform（x相当与hash map的key，h相当于hash map的value），利用 h 和 相似度α 计算出weight sum得到一轮的结果，hopping的意思是将一轮计算出的结果输入到下一轮继续参与计算，不断重复（次数可以自定义也可以learn出来）...
+![Memory Network](https://img-blog.csdnimg.cn/20190406104141400.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+<strong>Visual Question Answering</strong>
+![Visual Question Answering](https://img-blog.csdnimg.cn/20190406115529562.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+<strong>Neural Turing  Machine</strong>
+Memory Network的另一个版本，不但可以读数据还可以写数据。但是运用不太广泛，可能是太复杂很难train起来。
+![Neural Turing  Machine](https://img-blog.csdnimg.cn/20190406120356326.png)
+<strong>Stack RNN</strong>
+当前使用的也不是很广泛，下图中的Push, Pop, Nothing为三个动作，不是看哪个概率大就只做哪个动作，而是三个动作都做，只不过相应动作的权重不同。
+![Stack RNN](https://img-blog.csdnimg.cn/20190406121428490.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+
+## 第七课（ForDeep）
+此节课程主要讲述有哪些方法可以应对train不起来的情况。
+![outline](https://img-blog.csdnimg.cn/20190406121849981.png)
+### 1 Batch Normalization
