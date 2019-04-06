@@ -1,6 +1,4 @@
 
-
-
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 # DL入门（二）powered by @李宏毅
 
@@ -65,3 +63,29 @@ Memory Network的另一个版本，不但可以读数据还可以写数据。但
 此节课程主要讲述有哪些方法可以应对train不起来的情况。
 ![outline](https://img-blog.csdnimg.cn/20190406121849981.png)
 ### 1 Batch Normalization
+将一个一个Batch的数据都做Normalization。
+![Batch-N](https://img-blog.csdnimg.cn/20190406124018380.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+<strong>At test stage</strong>
+由于在test阶段，数据都是一笔一笔地输入，所以我们没有办法得到相应的 μ 和 σ ,
+理想的解决方法是再用整个train-data计算出整体的 μ 和 σ ，但是在unlive的model中不保存train-data的数据。
+实际的解决办法是在 training 时拿每笔batch的 μ 和 σ 在最后求均值做为 test 中的参数。
+![Test](https://img-blog.csdnimg.cn/20190406124817438.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+<strong>Benefit:</strong>
+![Benefit](https://img-blog.csdnimg.cn/20190406143733624.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+
+### 2 Activation Function
+##### (1) SELU
+特性：
+![SELU](https://img-blog.csdnimg.cn/20190406150310367.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+![SELU1](https://img-blog.csdnimg.cn/20190406151937855.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+
+### 3 Highway Network
+将GRU中gate的概念用于Feedforward network。解决了训练深层神经网络的难题，Highway Networks 允许信息高速无阻碍的通过深层神经网络的各层，这样有效的减缓了梯度的问题，使深层神经网络不在仅仅具有浅层神经网络的效果。
+![Highway Network](https://img-blog.csdnimg.cn/20190406154421897.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+### 3 Grid LSTM
+在time和layer上都存在memory。
+![Grid LSTM](https://img-blog.csdnimg.cn/20190406155737330.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+
+## 第八课（Tuning Hyperparameters）
+### 1 grid search
+![grid search](https://img-blog.csdnimg.cn/20190406161525222.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
