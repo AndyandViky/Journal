@@ -90,4 +90,24 @@ StarGAN只需要训练一个Generator，输入为inputImage和target domain输�
 ![GAN-projection](https://img-blog.csdnimg.cn/20190407155019646.png)
 由下图所示：在encdoer中共用后几层的参数，在decoder中共用前几层的参数。
 ![GAN-projection1](https://img-blog.csdnimg.cn/20190407155527178.png)
+### 8 Tips For Improving GAN
+![Js-Divergence](https://img-blog.csdnimg.cn/20190408130704700.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+由上图可知，实际上，PG和Pdata几乎没有重合，那么在没有重合的情况下，JS-divergence计算出来的值永远是log2。
+##### (1) LSGAN（Least Square GAN）
+![Least Square GAN](https://img-blog.csdnimg.cn/20190408132958300.png)
+由上图可知，Least Square GAN主要在于将sigmoid函数换成线性函数，使得不会出现在一边特别平坦。
+##### (1) WGAN（Wasserstein GAN）
+将原始的Js divergence替换为Earth Mover`s Distance。
+![Earth-Mover-Distance](https://img-blog.csdnimg.cn/20190408133643569.png)
+由下图所示，可能由很多中方式可以将P拼成Q，那么就需要穷举所有的方法，寻找其中转移量平均值最小的那一个作为Earth Mover Distance。
+![Earth-Mover-Distance](https://img-blog.csdnimg.cn/20190408134808751.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+如下图所示：Wasserstein distance的公式如下，将real-data的分数拉高，generator产生的分数拉低，但是如果没有限制条件，那么将会无限地拉高和拉低。
+![WGAN](https://img-blog.csdnimg.cn/20190408140655826.png)
+一：在原始的GAN中，使用的是Weight-clipping的方法防止无限的拉高和拉低，给定限制条件，w的最大值和最小值都被固定。
+![Weight-clipping](https://img-blog.csdnimg.cn/20190408140934687.png)
+二：类似于Regularization，给V(G, D)加上限制条件，对于所有的x都必须得到D(x)的gradient<=1，但是穷举所有的x显然是不可能的，我们将区间缩小到Ppenalty。穷举该区间的x必须使D(x)的gradient<=1。
+![WGAN-PG](https://img-blog.csdnimg.cn/20190408141119428.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+Ppenalty可以是在Pdata和PG中各sample一个点的连线中的任意一点，如下图蓝色区域为Ppenalty。
+但是在2018年的有些paper中提到Ppenalty的取值区间应该在Pdata范围内，这样将会得到更好的效果。
+![WGAN-PG](https://img-blog.csdnimg.cn/20190408141407865.png)
 
