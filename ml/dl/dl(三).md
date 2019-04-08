@@ -105,9 +105,35 @@ StarGAN只需要训练一个Generator，输入为inputImage和target domain输�
 ![WGAN](https://img-blog.csdnimg.cn/20190408140655826.png)
 一：在原始的GAN中，使用的是Weight-clipping的方法防止无限的拉高和拉低，给定限制条件，w的最大值和最小值都被固定。
 ![Weight-clipping](https://img-blog.csdnimg.cn/20190408140934687.png)
-二：类似于Regularization，给V(G, D)加上限制条件，对于所有的x都必须得到D(x)的gradient<=1，但是穷举所有的x显然是不可能的，我们将区间缩小到Ppenalty。穷举该区间的x必须使D(x)的gradient<=1。
+二：类似于Regularization，给V(G, D)加上限制条件，对于所有的x都必须得到D(x)的gradient norm<=1，但是穷举所有的x显然是不可能的，我们将区间缩小到Ppenalty。穷举该区间的x必须使D(x)的gradient norm<=1。
 ![WGAN-PG](https://img-blog.csdnimg.cn/20190408141119428.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
 Ppenalty可以是在Pdata和PG中各sample一个点的连线中的任意一点，如下图蓝色区域为Ppenalty。
 但是在2018年的有些paper中提到Ppenalty的取值区间应该在Pdata范围内，这样将会得到更好的效果。
-![WGAN-PG](https://img-blog.csdnimg.cn/20190408141407865.png)
+![WGAN-PG](https://img-blog.csdnimg.cn/20190408141407865.png) 
+三：Spectrum norm
+可以保证在任何地方，其gradient norm都是小于等于1的。
 
+### 9 Feature Extraction
+##### (1) Info GAN
+如下图所示：我们往往希望输入的vector的每一维可以控制生成图像的特征，例如第一维代表字体粗细，第二维代表字体颜色...但是实际上训练出来的mode的分布是非常紊乱的。
+![ Info GAN](https://img-blog.csdnimg.cn/20190408164719656.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+如下图所示：InfoGAN的目的就在于能够训练处分布规则的model，相比于普通的GAN，InfoGAN增加了一个Classifier，并且将输入切割为两块（c. z`），输入数据到Generator产生X，再将X输入Classifier希望能够反推出c，这样的话就可能会使C带上某种规则，Classifier会学到这种规则快速推出c。
+![ Info GAN](https://img-blog.csdnimg.cn/20190408164931697.png)
+不是因为c本身就带有控制的规则，而是我们希望训练出控制的规则才产生了c。
+![ Info GAN](https://img-blog.csdnimg.cn/20190408164940923.png)
+##### (2) VAE GAN
+VAEGAN的结构图如下图所示。
+![VAEGAN](https://img-blog.csdnimg.cn/20190408170906665.png)
+VAEGAN的演算法。
+如下图所示：VAEGAN共有三类的图片（图中表明）。
+Encoder的作用：希望缩小真实Image和reconstruct的Image之间的差距，希望真实图片产生的code接近norm distribution。
+Decoder的作用：希望缩小真实Image和reconstruct的Image之间的差距，希望产生出来的东西可以骗过Discriminator。
+Discriminator的作用：对输入的图片评分。
+![VAEGAN](https://img-blog.csdnimg.cn/20190408170914205.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+##### (3) BiGAN
+BiGAN需要分别train一个Encoder和一个Decoder，这两个是分开的，同时还要train一个Discriminator。这个Discriminator的输入为一个Encoder或者Decoder的输入和输出，输出是需要确定输入的值是来自Encoder还是Decoder。
+![BiGAN](https://img-blog.csdnimg.cn/2019040818452986.png)
+演算法：从数据库中sampleM个图片，利用Encoder得到M个coder。从norm distribution sample M个coder，利用Decoder生成M张图片。输入Discriminator中，当时Encoder时给高分，是Decoder时给低分。
+![BiGAN](https://img-blog.csdnimg.cn/2019040818453991.png)
+##### (4) Feature Disentangle（特征分离）
+![Feature Disentangle](https://img-blog.csdnimg.cn/20190408191119713.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
