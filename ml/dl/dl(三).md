@@ -1,5 +1,3 @@
-
-
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 # DL入门（三）powered by @李宏毅
 
@@ -147,4 +145,41 @@ Maximum Likelihood和RL的主要区别在于RL在求gradient的时候都要乘�
 ##### (2) 引入GAN的概念
 众所周知，在一般情境中人无法给出所有的正确的reward，所以RL在一般情况下train不起来。
 ![RL+GAN](https://img-blog.csdnimg.cn/20190423205103387.png)
-如上图所示，我们需要训练一个Discriminator充当Human的角色，当然一开始这个Discriminator是非常弱的，我们同时也需要去修改Discriminator的参数。
+如上图所示，我们需要训练一个Discriminator充当Human的角色，当然一开始这个Discriminator是非常弱的，我们同时也需要去update Discriminator的参数。
+![Algorithm](https://img-blog.csdnimg.cn/201904232132392.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+演算法如上图所示，和一般的conditional GAN一样。但是有一个问题，我们的Chatbot是一个RNN，即当前轮次都需要考虑前面所得到的结果，那么如何解决呢？我们可以自定义我们的Discriminator架构，例如将input和ouput全部接起来丢入Discriminator得到一个结果等等。
+![text gradient](https://img-blog.csdnimg.cn/20190423214038762.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+如上图所示在用GAN做text的时候会经过一个sample process，之后将无法进行gradient descent。
+&emsp;<strong>1 Gumbel-softmax</strong>
+&emsp;核心思想就是想出一个trick使得可以微分。
+&emsp;<strong>2 Continue Input for Discriminator</strong>
+&emsp;![Continue Input for Discriminator](https://img-blog.csdnimg.cn/20190423214823217.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+&emsp;如上图所示，省去sampling process，直接将distribution传给Discriminator。
+&emsp;但是由于输入的是distribution，但是真实的数据都是one-hot的，那么Discriminator很有可能直接学会不管语意不管对错直接将distribution压成one-hot的形式。
+&emsp;![Continue Input for Discriminator](https://img-blog.csdnimg.cn/20190423215332838.png)
+##### (3) Unsupervised Conditional Sequence GAN
+&emsp;<strong>1 text style transfer</strong>
+&emsp;![text style transfer](https://img-blog.csdnimg.cn/20190423220100851.png)
+&emsp;将语意好的句子转为差的句子等等。
+&emsp;可以使用cycle GAN直接train，只需要把图像转为句子即可。
+&emsp;![text style transfer](https://img-blog.csdnimg.cn/20190423220205412.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+&emsp;也可以使用Project to Common Space的方法，把图像转为句子即可。
+&emsp;![text style transfer](https://img-blog.csdnimg.cn/20190423220357429.png)
+&emsp;<strong>2 abstractive summarization(摘要总结)</strong>
+&emsp;可以使用seq2seq硬train下去，但是至少需要100w份文章和摘要才有可能训练出好的结果。
+&emsp;![abstractive summarization](https://img-blog.csdnimg.cn/20190423220922286.png)
+&emsp;加上GAN的思想即可以做到unsupervised的training，
+&emsp;![abstractive summarization1](https://img-blog.csdnimg.cn/2019042322135249.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+&emsp;思想和cycle GAN一样。
+### 11 Evaluation
+如何评估训练出来的GAN model的好坏。
+##### (1) 在传统上使用Likelihood
+![Evaluation](https://img-blog.csdnimg.cn/20190423222139601.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+由于使用GAN的时候我们无法通过Generator计算出产生某张特定图片的机率。
+![Evaluation](https://img-blog.csdnimg.cn/20190423222433115.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+由上图所示，我们可以使用Generator产生出一批的数据，然后使用高斯去逼近这些数据，最后叠加形成一个高斯模型，这样我们就可以计算出P(xi)。但是我们不知道使用多少个高斯分布也不知道sample出多少个点...
+##### (2) Objective Evaluation
+事先训练好一个Classifier来Evaluation产生出来的结果的好坏，同时还需要检测当前产出的结果是否每个分类都平均。
+![Evaluation](https://img-blog.csdnimg.cn/20190423223215874.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+![Evaluation](https://img-blog.csdnimg.cn/20190423223539168.png)
+如上图所示，将Generator产出的某张图片丢入Classifier中，得到的distribution中的某个分类的值越大越好。将所有的output丢入Classifier中，得到许多的distribution做平均，每个分类的数值越接近越好。
