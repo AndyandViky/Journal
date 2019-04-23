@@ -1,4 +1,5 @@
 
+
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 # DL入门（三）powered by @李宏毅
 
@@ -137,3 +138,13 @@ BiGAN需要分别train一个Encoder和一个Decoder，这两个是分开的，�
 ![BiGAN](https://img-blog.csdnimg.cn/2019040818453991.png)
 ##### (4) Feature Disentangle（特征分离）
 ![Feature Disentangle](https://img-blog.csdnimg.cn/20190408191119713.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+### 10 Improving Sequence Generation by GAN
+![outLine](https://img-blog.csdnimg.cn/20190423202831479.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+##### (1) RL和Maximum Likelihood的比较
+![maximizing](https://img-blog.csdnimg.cn/20190423204056536.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+![compare](https://img-blog.csdnimg.cn/20190423204432421.png)
+Maximum Likelihood和RL的主要区别在于RL在求gradient的时候都要乘上一个Reward，并且RL中的xi有可能是错误的。
+##### (2) 引入GAN的概念
+众所周知，在一般情境中人无法给出所有的正确的reward，所以RL在一般情况下train不起来。
+![RL+GAN](https://img-blog.csdnimg.cn/20190423205103387.png)
+如上图所示，我们需要训练一个Discriminator充当Human的角色，当然一开始这个Discriminator是非常弱的，我们同时也需要去修改Discriminator的参数。
