@@ -1,5 +1,3 @@
-
-
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 # DL入门（四）powered by @李宏毅
 
@@ -48,7 +46,7 @@ on-policy的意思是训练出来的Agent和与环境互动的Agent是同一个�
 ![Another Critic](https://img-blog.csdnimg.cn/20190425153643572.png)
 下图为Q-Learning的一般思想。
 ![Q-learning](https://img-blog.csdnimg.cn/20190425155558772.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
-##### (2) Tips of Q-Learning
+##### (2) Q-Learning 中所使用的特性
 &emsp;<strong>1 target network</strong>
 &emsp;由于Q这两个neural初始是一样的，在训练时两个会同时update参数，这样会导致最终的参数会是两次update相加的结果，Target Network提供的思想就是先固定住后一个neural的参数，只update前一个neural的参数，在update若干次后再将前一个的参数赋给后面的那个neural，这样就需要重新train，之后再不断往复。
 &emsp;![target network](https://img-blog.csdnimg.cn/20190425160024524.png)
@@ -58,3 +56,16 @@ on-policy的意思是训练出来的Agent和与环境互动的Agent是同一个�
 &emsp;<strong>3 Replay Buffer</strong>
 &emsp;核心思想是拿Agent与环境做交互，产出大量的Experience放到一个比较大的buffer里，之后使用迭代训练，每一次迭代都从buffer中随机sample一个batch的数据进行训练。
 &emsp;![Replay Buffer](https://img-blog.csdnimg.cn/20190425162827651.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+下图为典型的Q-Learning算法
+![Q-Learning算法](https://img-blog.csdnimg.cn/20190425201844833.png)
+##### (3) Tips of Q-Learning
+&emsp;<strong>1 Double DQN</strong>
+&emsp;在实际训练中使用Q function的值总是会被高估，原因在于Q function选择的为value最大的值，那么一旦某个action被高估，Q function就会选择那个action。
+![Double DQN](https://img-blog.csdnimg.cn/2019042520251337.png)
+&emsp;下图为Double DQN的思想
+![Double DQN](https://img-blog.csdnimg.cn/20190425203036495.png)
+&emsp;<strong>2 Dueling DQN</strong>
+&emsp;该tip的核心思想为修改network在输出位置的架构。如下图所示，第一幅图是一般Q-Learning的网络架构，第二幅为改进的network。
+&emsp;![Dueling DQN](https://img-blog.csdnimg.cn/20190425203432760.png)
+&emsp;如下图所示，在实做上，我们会给A(s,a)加上一个Constrain使得其中每个Colum的值加起来都为0，这样做的好处在于可以强迫network倾向去更新V(s)的值，这样将会更有效率地使用data。
+![Dueling DQN](https://img-blog.csdnimg.cn/20190425204753721.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
