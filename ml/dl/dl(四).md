@@ -69,3 +69,10 @@ on-policy的意思是训练出来的Agent和与环境互动的Agent是同一个�
 &emsp;![Dueling DQN](https://img-blog.csdnimg.cn/20190425203432760.png)
 &emsp;如下图所示，在实做上，我们会给A(s,a)加上一个Constrain使得其中每个Colum的值加起来都为0，这样做的好处在于可以强迫network倾向去更新V(s)的值，这样将会更有效率地使用data。
 ![Dueling DQN](https://img-blog.csdnimg.cn/20190425204753721.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+##### (4) Q-Learning For Continues Action
+如下图所示：在连续的情况下我们无法穷举所有的可能去算出Q(s,a)。
+方法一：sample一部分的actions，但是这样计算量较大且效率不高，最终的performance也不好。
+方法二：利于gradient ascent去求出最大值，但是有可能并不是全局最大值，计算量也非常大。
+方法三：设计一个新的Network架构，如下图右侧事例。
+![Q-Learning For Continues Action](https://img-blog.csdnimg.cn/20190426165749145.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+
