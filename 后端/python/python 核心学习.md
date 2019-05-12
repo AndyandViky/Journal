@@ -497,8 +497,6 @@ b'\x80\x03}q\x00(X\x03\x00\x00\x00ageq\x01K\x14X\x05\x00\x00\x00scoreq\x02KXX\x0
 json.dumps(s, default=lambda obj: obj.__dict__))  
 加载时需要先读取dict，再利用钩子函数将dict转为class。  
 json.loads(json_str, object_hook=dict2class)
-## (7) 进程和线程
 
-## (8) 测试
-### 1 单元测试
-### 2 文档测试
+##### 部分内容来自于_https://www.liaoxuefeng.com/wiki/1016959663602400_
+##### 该博文仅作学习使用。
