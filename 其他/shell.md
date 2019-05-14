@@ -1,4 +1,5 @@
 # shell语法总结
+https://www.runoob.com/linux/linux-shell-variable.html
 ### (1) 变量
 ### (2) 传递参数
 ### (3) 数组
