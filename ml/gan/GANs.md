@@ -13,23 +13,40 @@ __contributions：__
 
 __weakness：__
 1 但是对GAN训练稳定性来说是治标不治本，没有从根本上解决问题，而且训练的时候仍需要小心的平衡G,D的训练进程，往往是训练一个多次，训练另一个一次。
+
 ### 2）SA-GAN：
 __structure:__
-
-__paper:__
+![SA-GAN](https://img-blog.csdnimg.cn/20190720161623113.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+__paper:__  https://arxiv.org/abs/1805.08318
 
 __contributions：__
 1 利用self-attention机制更好地考虑全局信息。
 2 利用spectral normalization和TTUR(two timescale update rule)使模型训练更加稳定。
+3 根据self-attention机制可以生成质量非常高的数据。
 
-__weakness：__
 ### 3）Big-GAN:
 __structure:__
-__paper:__
+![B](https://img-blog.csdnimg.cn/20190720163540754.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+__paper:__ https://arxiv.org/abs/1809.11096
 
 __contributions：__
+1 通过2-4倍的增加参数量（增加channel），8倍的扩大batchsize，可以使GAN获得最大的性能提升。
+2 通过使用截断技巧（truncation trick），可以使得训练更加平稳，但是需要在多样性和逼真度之间做平衡。
+3 通过现存的和其他新颖的各种技术的集合，可以保证训练的平稳性，但是精度也会随之下降，需要在性能和训练平稳性之间做平衡。
 
-__weakness：__
+__负面影响:__
+Reference: https://blog.csdn.net/qq_14845119/article/details/85619705
+1 增加网络深度会使得精度降低。
+2 在判别器上使用贡献嵌入参数的方法，对参数的选择非常敏感，刚开始有助于训练，后续则很难优化。
+3 使用WeightNorm 替换BatchNorm 会使得训练难以收敛，去掉BatchNorm 只有Spectral Normalization 也会使得难以收敛。
+4 判别器中增加BatchNorm 会使得训练难以收敛。
+5 在128*128的输入情况下，改变attention block对精度没提升，在256*256输入的情况下，将attention block上移一级，会对精度有提升。
+6 相比采用3*3的滤波器，采用5*5的滤波器会使精度有略微提升，而7*7则不会。
+7 使用膨胀卷积会降低精度
+8 将生成器中的最近邻插值换为双线性插值会使得精度降低。
+9 在共享嵌入中使用权值衰减（weight decay），当该衰减值较大（10-6 ）会损失精度，较小（10-8 ）会起不到作用，不能阻止梯度爆炸。
+10 在类别嵌入中，使用多层感知机（MLP）并不比线性投影（linear projections）好。
+11 梯度归一化截断会使得训练不平稳。
 
 ### 4）W-GAN：
 ps: 判别器最后一层去掉sigmoid。
