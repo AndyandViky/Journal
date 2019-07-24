@@ -1,0 +1,173 @@
+
+标题
+
+======
+
+this is h1
+
+------
+
+this is h2
+
+------
+
+
+
+# h1
+
+## h2
+
+### h3
+
+#### h4
+
+##### h5
+
+###### h6
+
+
+
+段落
+
+> This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
+
+consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
+
+Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
+
+
+
+段落嵌套
+
+> 第一个段落
+
+>
+
+>>第二个
+
+
+
+有序列表
+
+1. 第一
+
+2. 第二
+
+
+
+无序列表
+
+* 第一
+
+* 第二
+
+或者
+
++ 第一
+
++ 第二
+
+或者
+
+- 第一
+
+- 第二
+
+
+
+混合使用
+
+> ## 这是一个标题。
+
+>
+
+> 1. 这是第一行列表项。
+
+> 2. 这是第二行列表项。
+
+>
+
+> 给出一些例子代码：
+
+>
+
+> return shell_exec("echo $input | $markdown_script");
+
+
+
+特殊情况 加 \ 转译
+
+1986\. What a great season.
+
+
+
+五种 分割线
+
+
+
+* * *
+
+
+
+***
+
+
+
+*****
+
+
+
+- - -
+
+
+
+---------------------------------------
+
+
+
+
+显示url链接， Title 类似于html title="" 属性
+
+This is [an example](http://example.com/ "Title") inline link.
+
+
+
+相对路径显示
+
+See my [About](/about/) page for details.
+
+
+
+
+被 * 或 _ 包围的字词会被转成用 \<em\> 标签包围，用两个 * 或 _ 包起来的话，则会被转成 \<strong\>
+
+
+
+*single asterisks*
+
+
+
+_single underscores_
+
+
+
+**double asterisks**
+
+
+
+__double underscores__
+
+
+
+
+如果要标记一小段行内代码，你可以用反引号把它包起来（`），例如：
+
+
+
+Use the `printf()` function.
+
+
+
+图片
+
+![Alt text](/path/to/img.jpg "Optional title")
