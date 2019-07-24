@@ -1,2 +1,7 @@
-# journal
-## 日常学习博客记录
+# journal  
+
+## Front-End  
+## ML  
+## Others  
+## Server  
+## c:c++  
