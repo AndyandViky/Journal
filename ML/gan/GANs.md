@@ -163,3 +163,27 @@ __paper:__ https://arxiv.org/abs/1808.10356
 __contributions：__
 1 将GMM作为latent $z$的样本集合，每次$z$从某个高斯模型中sample。
 2 利用scaling factor $\sigma$来控制生成样本的多样性和质量之间的关系，其中公式为$z|k ∼ N (μ_{k} , σ ∗ Σ_{k} )$，$\sigma$越大多样性越强反而质量有所下降。
+
+### 15）Style-GAN:
+__structure:__
+![style-gan](https://img-blog.csdnimg.cn/20190813094658578.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+ps: 图中FC为全连接层，A为仿射变换(Affine transform)，B 是每个channel的高斯噪声的系数，AdaIN为归一化操作，具体公式为 $AdaIN(x_{i}, y)=y_{s,i}\frac{x_{i}-\mu(x_{i})}{\sigma(x_{i})}+y_{b,i}$ 其中 $y_{s,i},y_{b,i}$ 是由 $w$ 经过仿射变换得到的 $y=(y_{s},y_{b})$
+__paper:__ https://arxiv.org/abs/1812.04948
+
+__contributions:__
+1 提出了一个新的 generator architecture，能够控制所生成图像的高层级属性。
+2 可以很好地从latent vector中分离control vector和variation。
+3 利用mixing regularization操作实现图像细节的掌控。
+
+### 16）AAE（adversarial autoencoder）
+__structure:__
+![AAE](https://img-blog.csdnimg.cn/20190813135811350.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+ps: AAE网络结构由一个 autoencoder 和一个 discriminator 组成，该 discriminator 需要鉴别的不是图片，而是来自 autoencoder 中的 latent $z\sim q(z)$ 和自定义分布中抽取出来的 $z\sim p(z)$，该网络需要做的就是让 q(z) 接近于 p(z)，最终可以直接从 p(z) 中抽出 latent $z$ 生成图片。
+__paper:__ https://arxiv.org/abs/1511.05644
+__contributions:__
+1 设计了一个新颖的网络结构，以 latent vector 分布的角度出发去研究生成模型。
+2 利用 AE 的特性去 capture latent z 的分布。
+3 利用对抗的形式引导 latent vector 的分布朝着已定义分布的形式靠近。
+
+### 17）Bayesian GAN
+__paper:__ https://arxiv.org/abs/1705.09558
