@@ -175,7 +175,7 @@ __contributions:__
 2 可以很好地从latent vector中分离control vector和variation。
 3 利用mixing regularization操作实现图像细节的掌控。
 
-### 16）AAE（adversarial autoencoder）
+### 16）AAE（adversarial autoencoder）:
 __structure:__
 ![AAE](https://img-blog.csdnimg.cn/20190813135811350.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
 ps: AAE网络结构由一个 autoencoder 和一个 discriminator 组成，该 discriminator 需要鉴别的不是图片，而是来自 autoencoder 中的 latent $z\sim q(z)$ 和自定义分布中抽取出来的 $z\sim p(z)$，该网络需要做的就是让 q(z) 接近于 p(z)，最终可以直接从 p(z) 中抽出 latent $z$ 生成图片。
@@ -185,5 +185,24 @@ __contributions:__
 2 利用 AE 的特性去 capture latent z 的分布。
 3 利用对抗的形式引导 latent vector 的分布朝着已定义分布的形式靠近。
 
-### 17）Bayesian GAN
+### 17）InfoGAN:
+__structure:__
+![infoGAN](https://img-blog.csdnimg.cn/20190813171730627.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+ps：其中Q与D共享卷积网络，Q是一个辅助性的概率分布 $Q(c|x)$，目的在于利用 __Variational Information Maximization__ 的技巧对互信息进行下界拟合。
+
+__paper:__ https://arxiv.org/abs/1606.03657
+__contributions:__
+1 将 latent code 分为 $z$ 和 $c$，利用 $c$ 控制生成图像的属性（形式上和CGAN一样）。
+2 利用互信息的概念对 $G(z,c)$ 和 $c$ 建模，互信息公式为：$I(X;Y)=H(X)-H(X|Y)=H(Y)-H(Y|X)$ 。根据互信息的概念当 $X,Y$ 高度相关时，在已知 $Y$ 的情况下 $X$ 不存在不确定性，即 $H(X|Y)=0$，那么此时互信息达到最大，该网络的目的就在于最大化  $G(z,c)$ 和 $c$ 之间的互信息。
+
+### 18）PG-GAN(Progressive Growing of GAN)
+__structure:__
+![PGGAN](https://img-blog.csdnimg.cn/20190813173802417.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FuZHlWaWt5,size_16,color_FFFFFF,t_70)
+__paper:__ https://arxiv.org/abs/1710.10196
+__contributions:__
+1 利用在训练过程中动态平稳叠加网络的方法得到高分辨率的图片。
+2 利用 fade-in 的 trick 使得增加网络层非常稳定，不会导致突然的抖动让网络重新开始学习。
+3 提出 Minibatch standard deviation(MSD) 对 mode collapse 现象进行了缓解。
+
+### 19）Bayesian GAN
 __paper:__ https://arxiv.org/abs/1705.09558
