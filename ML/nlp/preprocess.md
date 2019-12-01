@@ -80,3 +80,7 @@
     stopwords = []
     def delete_stop_word(sentences):
         return [[word for word in s if word not in stopwords] for s in sentences]
+
+__References__  
+https://www.cnblogs.com/lookfor404/p/9784630.html  
+https://blog.csdn.net/hfutdog/article/details/86495574
